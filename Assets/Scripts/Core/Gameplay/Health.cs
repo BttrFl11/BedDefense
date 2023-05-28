@@ -1,12 +1,32 @@
 ﻿using Core.Gameplay.Interfaces;
+using System;
 
 namespace Core.Gameplay
 {
-    public class Health : IHealth
+    public abstract class Health : IHealth
     {
         private HealthSettings _settings;
 
-        public float Value { get; set; }
+        private float _value;
+        private float Value 
+        {
+            get => _value;
+            set
+            {
+                _value = value;
+
+                OnChanged?.Invoke(Value, _settings.MaxValue);
+            }
+        }
+
+        private bool Overheal => Value > _settings.MaxValue && _settings.LimitedMaxValue;
+        private bool IsDead => Value <= 0;
+
+        /// <summary>
+        /// arg1 - current value
+        /// arg2 - max value
+        /// </summary>
+        public event Action<float, float> OnChanged;
 
         public Health(HealthSettings settings)
         {
@@ -17,7 +37,12 @@ namespace Core.Gameplay
 
         private void Init()
         {
-            Value = _settings.StartValue;
+            Fill();
+        }
+
+        private void Fill()
+        {
+            Value = _settings.MaxValue;
         }
 
         public void Update(float deltaTime)
@@ -25,11 +50,19 @@ namespace Core.Gameplay
             Heal(deltaTime * _settings.RegeneratePerSecond);
         }
 
+        public void Set(float value)
+        {
+            Value = value;
+
+            if (Overheal)
+                Fill();
+        }
+
         public bool Decrease(float amount)
         {
             Value -= amount;
 
-            if (Value <= 0)
+            if (IsDead)
                 return true;
 
             return false;
@@ -39,8 +72,8 @@ namespace Core.Gameplay
         {
             Value += amount;
 
-            if (Value > _settings.MaxValue && _settings.LimitedMaxValue)
-                Value = _settings.MaxValue;
+            if (Overheal)
+                Fill();
         }
     }
 }

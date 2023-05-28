@@ -2,7 +2,7 @@
 
 namespace Core.Gameplay.Interfaces
 {
-    public interface ICollider
+    public interface ICollideable
     {
         void OnTriggerEnter2D(Collider2D collider);
     }

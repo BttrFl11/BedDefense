@@ -6,5 +6,6 @@ namespace ScriptableObjects.Data.Enemy
     [Serializable]
     public class EnemyHealthData : UnitHealthData
     {
+
     }
 }
