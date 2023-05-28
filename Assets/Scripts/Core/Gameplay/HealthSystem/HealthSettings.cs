@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Gameplay
+namespace Core.Gameplay.HealthSystem
 {
     [Serializable]
     public struct HealthSettings

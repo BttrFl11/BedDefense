@@ -1,7 +1,7 @@
 ﻿using ScriptableObjects.Data.Character;
 using UnityEngine;
 
-namespace ScriptableObjects
+namespace ScriptableObjects.SO
 {
     [CreateAssetMenu(menuName = GameConst.SCRIPTABLE_OBJECTS_PATH + "Character Data")]
     public class CharacterDataSO : UnitDataSO

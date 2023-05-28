@@ -1,5 +1,5 @@
 using Core.Gameplay.Unit;
-using ScriptableObjects;
+using ScriptableObjects.SO;
 
 namespace Core.Gameplay.Enemy
 {

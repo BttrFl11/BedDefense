@@ -1,4 +1,4 @@
-﻿using Core.Gameplay;
+﻿using Core.Gameplay.HealthSystem;
 using UnityEngine;
 
 namespace UI.Gameplay.HealthView

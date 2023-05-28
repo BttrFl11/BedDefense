@@ -1,7 +1,7 @@
 ﻿using ScriptableObjects.Data.Enemy;
 using UnityEngine;
 
-namespace ScriptableObjects
+namespace ScriptableObjects.SO
 {
     [CreateAssetMenu(menuName = GameConst.SCRIPTABLE_OBJECTS_PATH + "Enemy Data")]
     public class EnemyDataSO : UnitDataSO

@@ -1,3 +1,5 @@
+using Core.Gameplay.HealthSystem;
+
 namespace Core.Gameplay.Enemy.Systems 
 {
     public class EnemyHealth : Health

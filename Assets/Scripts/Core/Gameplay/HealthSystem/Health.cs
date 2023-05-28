@@ -1,7 +1,7 @@
 ﻿using Core.Gameplay.Interfaces;
 using System;
 
-namespace Core.Gameplay
+namespace Core.Gameplay.HealthSystem
 {
     public abstract class Health : IHealth
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ScriptableObjects
+namespace ScriptableObjects.SO
 {
     public abstract class UnitDataSO : ScriptableObject
     {

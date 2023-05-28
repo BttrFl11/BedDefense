@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Core.Gameplay.HealthSystem;
 
 namespace Core.Gameplay.Character.Systems
 {
