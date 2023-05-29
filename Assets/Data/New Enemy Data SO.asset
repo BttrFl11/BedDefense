@@ -9,6 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edcd38f84588e3d4895dd592d0443d44, type: 3}
+  m_Script: {fileID: 11500000, guid: a9636af4665d34347958adc67e755d68, type: 3}
   m_Name: New Enemy Data SO
   m_EditorClassIdentifier: 
+  _healthData:
+    Settings:
+      StartValue: 0
+      MaxValue: 0
+      RegeneratePerSecond: 0
+      LimitedMaxValue: 0
+  _movementData:
+    _moveSpeed: 0

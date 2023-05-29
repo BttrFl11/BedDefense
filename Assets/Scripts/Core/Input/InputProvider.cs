@@ -2,17 +2,17 @@
 
 namespace Core.Input
 {
-    public class InputProvider : MonoBehaviour
+    public class InputProvider
     {
         private IInputService _inputService;
         public IInputService InputService => _inputService;
 
-        private void OnDisable()
+        public void OnDisable()
         {
             _inputService.OnDisable();
         }
 
-        private void Update()
+        public void Update()
         {
             _inputService.Update(Time.deltaTime);
         }

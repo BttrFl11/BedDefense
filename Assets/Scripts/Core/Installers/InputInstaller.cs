@@ -1,25 +1,34 @@
 ﻿using Core.Input;
-using UnityEngine;
 using Zenject;
 
 namespace Core.Installers
 {
     public class InputInstaller : MonoInstaller
     {
+        private InputProvider _inputProvider;
+
         public override void InstallBindings()
         {
-            GameObject obj = new GameObject("InputProvider");
-            InputProvider inputProvider = obj.AddComponent<InputProvider>();
-
-            DontDestroyOnLoad(inputProvider);
+            _inputProvider = new InputProvider();
+            Container.Bind<InputProvider>().FromInstance(_inputProvider).AsSingle();
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-            inputProvider.CreatePCInputService();
+            _inputProvider.CreatePCInputService();
 #else
-            inputProvider.CreateMobileInputService();
+            _inputProvider.CreateMobileInputService();
 #endif
 
-            Container.Bind<IInputService>().FromInstance(inputProvider.InputService).AsSingle();
+            Container.Bind<IInputService>().FromInstance(_inputProvider.InputService).AsSingle();
+        }
+
+        private void OnDisable()
+        {
+            _inputProvider.OnDisable();
+        }
+
+        private void Update()
+        {
+            _inputProvider.Update();
         }
     }
 }
