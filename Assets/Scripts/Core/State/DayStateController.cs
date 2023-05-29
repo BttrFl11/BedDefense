@@ -2,6 +2,7 @@ using Core.State.States;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Core.State
 {
@@ -28,11 +29,6 @@ namespace Core.State
 
         public event Action<DayState> OnStateChanged;
 
-        public DayStateController()
-        {
-
-        }
-
         private bool Contains<T>() where T : DayState
         {
             foreach (var state in _states)
@@ -55,7 +51,7 @@ namespace Core.State
             return null;
         }
 
-        private T CreateNew<T>() where T : DayState
+        private T CreateNew<T>()
         {
             Type type = typeof(T);
             T instance = (T)Activator.CreateInstance(type, new object[] { this });

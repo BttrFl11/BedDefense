@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Core.State.Attributes;
+using UnityEngine;
 
 namespace Core.State.States
 {
@@ -10,9 +11,12 @@ namespace Core.State.States
 
         public override void Enter()
         {
+            base.Enter();
+
             Debug.Log("Morning");
         }
 
+        [Wait(2f)]
         private void End()
         {
             Controller.Change<DayState_Night>();
@@ -20,6 +24,8 @@ namespace Core.State.States
 
         public override void Exit()
         {
+            base.Exit();
+
             Debug.Log("Morning Exit");
         }
     }

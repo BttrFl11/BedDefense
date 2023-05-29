@@ -11,8 +11,13 @@ namespace Core.Installers
         public override void InstallBindings()
         {
             _controller = new DayStateController();
-            Container.Bind<DayStateController>().FromInstance(_controller);
+            Container.Bind<DayStateController>().FromInstance(_controller).AsSingle();
 
+            AddStates();
+        }
+
+        private void AddStates()
+        {
             _controller.Add<DayState_Morning>();
             _controller.Add<DayState_Night>();
         }
