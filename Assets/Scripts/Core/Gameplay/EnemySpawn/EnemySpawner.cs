@@ -10,10 +10,14 @@ namespace Core.Gameplay.EnemySpawn
     public class EnemySpawner : MonoBehaviour
     {
         [SerializeField] private EnemySpawnerSO _data;
-
         [SerializeField] private DayWave[] _dayWaves;
 
         private void Awake()
+        {
+            Init();
+        }
+
+        private void Init()
         {
             _dayWaves = new DayWave[_data.DayWavesCount];
             List<DayWaveDataSO> allDaysData = new();
@@ -21,9 +25,6 @@ namespace Core.Gameplay.EnemySpawn
             List<WaveDataSO> allWavesData = new();
             allWavesData.AddRange(Resources.LoadAll<WaveDataSO>(GameConst.WAVE_DATA_PATH));
             List<WaveDataSO> allWavesDataInDay = new(allWavesData);
-
-            print(allWavesData.Count);
-            print(allDaysData.Count);
 
             for (int i = 0; i < _dayWaves.Length; i++)
             {
@@ -54,11 +55,6 @@ namespace Core.Gameplay.EnemySpawn
                     }
                 }
             }
-        }
-
-        private void Start()
-        {
-
         }
 
         private IEnumerator StartSpawn()

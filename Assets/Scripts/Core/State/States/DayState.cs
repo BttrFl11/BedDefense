@@ -44,13 +44,11 @@ namespace Core.State.States
                 timing.Reset();
             }
         }
+
         public virtual void Exit() 
         {
-            //foreach (Timing timing in _timings)
-            //{
-            //    timing.Reset();
-            //}
         }
+
         public virtual void Update()
         {
             foreach (Timing timing in _timings)
