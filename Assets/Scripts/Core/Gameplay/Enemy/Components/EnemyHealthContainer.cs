@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Core.Gameplay.Enemy.Components
 {
+    [RequireComponent(typeof(EnemyIdentity))]
     public class EnemyHealthContainer : EnemyMonoBehaviour, IDamageable
     {
         private EnemyHealth _health;
@@ -12,7 +13,14 @@ namespace Core.Gameplay.Enemy.Components
 
         public EnemyHealth Health => _health;
 
-        public void Init()
+        protected override void Awake()
+        {
+            base.Awake();
+
+            Init();
+        }
+
+        private void Init()
         {
             _data = Identity.GetData().HealthData;
             _health = new EnemyHealth(_data.Settings);

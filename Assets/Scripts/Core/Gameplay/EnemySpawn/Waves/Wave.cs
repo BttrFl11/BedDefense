@@ -1,5 +1,6 @@
 ﻿using Core.Gameplay.Enemy;
 using System;
+using UnityEngine;
 
 namespace Core.Gameplay.EnemySpawn.Waves
 {
@@ -8,5 +9,6 @@ namespace Core.Gameplay.EnemySpawn.Waves
     {
         public EnemyIdentity[] EnemyPrefabs;
         public int EnemeisCount;
+        public Vector2 MinMaxSpawnTime;
     }
 }

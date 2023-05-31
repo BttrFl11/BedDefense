@@ -5,10 +5,6 @@ namespace Core.State.States
 {
     public class DayState_Morning : DayState
     {
-        public DayState_Morning(DayStateController controller) : base(controller)
-        {
-        }
-
         public override void Enter()
         {
             base.Enter();
@@ -16,7 +12,7 @@ namespace Core.State.States
             Debug.Log("Morning");
         }
 
-        [Wait(2f)]
+        [Wait(3f)]
         private void End()
         {
             Controller.Change<DayState_Night>();

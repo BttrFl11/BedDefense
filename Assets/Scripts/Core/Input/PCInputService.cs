@@ -9,6 +9,7 @@ namespace Core.Input
     {
         public event Action OnAttack;
         public event Action<Vector2> OnMove;
+        /// <summary> Returns mouse point in world position </summary>
         public event Action<Vector2> OnLook;
 
         private Vector2 _moveDirection;
@@ -29,12 +30,12 @@ namespace Core.Input
 
         public void Update(float deltaTime)
         {
-            ReadAttack();
-            ReadMove();
-            ReadLook();
+            HandleAttack();
+            HandleMove();
+            HandleLook();
         }
 
-        private void ReadAttack()
+        private void HandleAttack()
         {
             if(GetMouseButtonDown(0))
             {
@@ -42,14 +43,14 @@ namespace Core.Input
             }
         }
 
-        private void ReadMove()
+        private void HandleMove()
         {
             _moveDirection = new Vector2(GetAxis(GameConst.HORIZONTAL_AXIS), GetAxis(GameConst.VERTICAL_AXIS)).normalized;
             if (_moveDirection.magnitude > 0)
                 OnMove?.Invoke(_moveDirection);
         }
 
-        private void ReadLook()
+        private void HandleLook()
         {
             if (_camera == null)
                 FindCamera();
@@ -58,5 +59,7 @@ namespace Core.Input
             if(_lookDirection != Vector2.zero)
                 OnLook?.Invoke(_lookDirection);
         }
+
+        public bool IsMobile() => false;
     }
 }

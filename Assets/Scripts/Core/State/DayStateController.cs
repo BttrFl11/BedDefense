@@ -6,11 +6,13 @@ using Zenject;
 
 namespace Core.State
 {
-    public class DayStateController
+    public class DayStateController : ITickable
     {
         private List<DayState> _states = new List<DayState>();
 
         private DayState _currentState;
+        private readonly DiContainer _diContainer;
+
         private DayState CurrentState
         {
             get => _currentState;
@@ -29,6 +31,19 @@ namespace Core.State
 
         public event Action<DayState> OnStateChanged;
 
+        public DayStateController(DiContainer diContainer)
+        {
+            _diContainer = diContainer;
+
+            AddStates();
+        }
+
+        private void AddStates()
+        {
+            Add<DayState_Morning>();
+            Add<DayState_Night>();
+        }
+
         private bool Contains<T>() where T : DayState
         {
             foreach (var state in _states)
@@ -40,7 +55,7 @@ namespace Core.State
             return false;
         }
 
-        private T Find<T>() where T : DayState
+        public T Find<T>() where T : DayState
         {
             foreach (var state in _states)
             {
@@ -48,13 +63,14 @@ namespace Core.State
                     return (T)state;
             }
 
-            return null;
+            return CreateNew<T>();
         }
 
-        private T CreateNew<T>()
+        private T CreateNew<T>() where T : DayState
         {
-            Type type = typeof(T);
-            T instance = (T)Activator.CreateInstance(type, new object[] { this });
+            T instance = _diContainer.Instantiate<T>();
+            instance.Init(this);
+
             return instance;
         }
 
@@ -85,7 +101,7 @@ namespace Core.State
             CurrentState = state;
         }
 
-        public void Update()
+        public void Tick()
         {
             CurrentState.Update();
         }

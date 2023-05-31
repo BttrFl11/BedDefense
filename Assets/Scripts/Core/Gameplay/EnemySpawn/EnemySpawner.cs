@@ -1,47 +1,70 @@
-﻿using Core.Gameplay.EnemySpawn.Waves;
+﻿using Core.Gameplay.Enemy;
+using Core.Gameplay.EnemySpawn.Waves;
+using Core.State;
+using Core.State.States;
 using ScriptableObjects.SO;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Utils;
+using Zenject;
 
 namespace Core.Gameplay.EnemySpawn
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : ITickable, IDisposable
     {
-        [SerializeField] private EnemySpawnerSO _data;
-        [SerializeField] private DayWave[] _dayWaves;
+        private EnemySpawnerSO _data;
 
-        private void Awake()
+        private DayWave[] _days;
+        private DayWave _day;
+        private Spawner _spawner;
+        private bool _spawn;
+        private int _dayIndex;
+        private DayStateController _stateController;
+
+        public event Action OnAllEnemiesDied;
+
+        public EnemySpawner(DayStateController stateController, EnemySpawnerSO data)
         {
+            _stateController = stateController;
+
+            _data = data;
+
             Init();
+
+            _stateController.Find<DayState_Night>().OnEnter += OnNightStart;
+            OnAllEnemiesDied += Stop;
+        }
+
+        public void Dispose()
+        {
+            _stateController.Find<DayState_Night>().OnEnter -= OnNightStart;
+            OnAllEnemiesDied -= Stop;
         }
 
         private void Init()
         {
-            _dayWaves = new DayWave[_data.DayWavesCount];
+            _days = new DayWave[_data.DayWavesCount];
             List<DayWaveDataSO> allDaysData = new();
             allDaysData.AddRange(Resources.LoadAll<DayWaveDataSO>(GameConst.DAY_WAVE_DATA_PATH));
             List<WaveDataSO> allWavesData = new();
             allWavesData.AddRange(Resources.LoadAll<WaveDataSO>(GameConst.WAVE_DATA_PATH));
             List<WaveDataSO> allWavesDataInDay = new(allWavesData);
 
-            for (int i = 0; i < _dayWaves.Length; i++)
+            for (int i = 0; i < _days.Length; i++)
             {
                 DayWaveDataSO dayData = Randomizer.GetElement<DayWaveDataSO>(allDaysData.ToArray());
                 int wavesCount = Randomizer.GetValueFromVector(dayData.MinMaxWavesCount);
-                _dayWaves[i].Waves = new Wave[wavesCount];
+                _days[i].Waves = new Wave[wavesCount];
 
                 if (_data.SimilarDaysAvailable == false)
                     allDaysData.Remove(dayData);
 
-                for (int j = 0; j < _dayWaves[i].Waves.Length; j++)
+                for (int j = 0; j < _days[i].Waves.Length; j++)
                 {
                     WaveDataSO waveData = Randomizer.GetElement<WaveDataSO>(allWavesDataInDay.ToArray());
-                    int enemiesCount = Randomizer.GetValueFromVector(waveData.MinMaxEnemiesCount);
 
-                    _dayWaves[i].Waves[j].EnemeisCount = enemiesCount;
-                    _dayWaves[i].Waves[j].EnemyPrefabs = waveData.EnemyPrefabs;
+                    ParseWave(waveData, i, j);
 
                     if (_data.SimilarWavesInDayAvailable == false)
                         allWavesDataInDay.Remove(waveData);
@@ -55,13 +78,119 @@ namespace Core.Gameplay.EnemySpawn
                     }
                 }
             }
+
+            void ParseWave(WaveDataSO data, int dayIndex, int waveIndex)
+            {
+                int enemiesCount = Randomizer.GetValueFromVector(data.MinMaxEnemiesCount);
+
+                _days[dayIndex].Waves[waveIndex].EnemeisCount = enemiesCount;
+                _days[dayIndex].Waves[waveIndex].EnemyPrefabs = data.EnemyPrefabs;
+                _days[dayIndex].Waves[waveIndex].MinMaxSpawnTime = data.MinMaxSpawnTime;
+
+            }
+
+            _dayIndex = 0;
         }
 
-        private IEnumerator StartSpawn()
+        private void OnNightStart()
         {
+            _spawn = true;
+            _day = _days[_dayIndex];
+            _dayIndex++;
 
+            _spawner = new Spawner(_day, OnAllEnemiesDied);
+        }
 
-            yield return null;
+        private void Stop()
+        {
+            _spawn = false;
+
+            _stateController.Change<DayState_Morning>();
+        }
+
+        public void Tick()
+        {
+            if (_spawn == false) return;
+
+            if (_spawner != null)
+                _spawner.Tick(Time.deltaTime);
+        }
+
+        private class Spawner
+        {
+            private readonly DayWave _dayWave;
+
+            private Action _onDayEnd;
+            private Wave _wave;
+            private int _waveIndex;
+            private int _enemiesCount;
+            private float _spawnTime;
+            private bool _stop = false;
+
+            private int EnemiesCount
+            {
+                get => _enemiesCount;
+                set
+                {
+                    _enemiesCount = value;
+                    if (_enemiesCount <= 0)
+                    {
+                        _waveIndex++;
+                        UpdateWave();
+                    }
+                }
+            }
+
+            public Spawner(DayWave dayWave, Action onDayEnd)
+            {
+                _dayWave = dayWave;
+                _onDayEnd = onDayEnd;
+
+                _waveIndex = 0;
+                UpdateWave();
+            }
+
+            private void UpdateWave()
+            {
+                if (_waveIndex >= _dayWave.Waves.Length)
+                {
+                    _onDayEnd?.Invoke();
+                    _stop = true;
+                    return;
+                }
+
+                _wave = _dayWave.Waves[_waveIndex];
+
+                _spawnTime = Randomizer.GetValueFromVector(_wave.MinMaxSpawnTime);
+                EnemiesCount = _wave.EnemeisCount;
+            }
+
+            public void Tick(float deltaTime)
+            {
+                if (_stop) return;
+
+                _spawnTime -= deltaTime;
+
+                if (_spawnTime <= 0)
+                {
+                    SpawnEnemy();
+                }
+            }
+
+            private void SpawnEnemy()
+            {
+                EnemyIdentity prefab = GetRandomPrefab();
+
+                Debug.Log(prefab.name);
+
+                _spawnTime = Randomizer.GetValueFromVector(_wave.MinMaxSpawnTime);
+                EnemiesCount--;
+            }
+
+            private EnemyIdentity GetRandomPrefab()
+            {
+                return Randomizer.GetElement<EnemyIdentity>(_wave.EnemyPrefabs);
+            }
         }
     }
 }

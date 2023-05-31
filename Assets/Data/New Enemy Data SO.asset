@@ -19,4 +19,4 @@ MonoBehaviour:
       RegeneratePerSecond: 0
       LimitedMaxValue: 0
   _movementData:
-    _moveSpeed: 0
+    _moveSpeed: 2

@@ -3,18 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using Zenject;
 
 namespace Core.State.States
 {
     public class DayState : IDayState
     {
         private DayStateController _controller;
-
         private List<Timing> _timings = new List<Timing>();
 
         public DayStateController Controller => _controller;
 
-        public DayState(DayStateController controller)
+        public event Action OnEnter;
+        public event Action OnExit;
+
+        public DayState()
         {
             List<Timing> timings = new List<Timing>();
 
@@ -34,11 +37,17 @@ namespace Core.State.States
             }
 
             _timings = new(timings);
+        }
+
+        public void Init(DayStateController controller)
+        {
             _controller = controller;
         }
 
         public virtual void Enter() 
         {
+            OnEnter?.Invoke();
+
             foreach (Timing timing in _timings)
             {
                 timing.Reset();
@@ -47,6 +56,7 @@ namespace Core.State.States
 
         public virtual void Exit() 
         {
+            OnExit?.Invoke();
         }
 
         public virtual void Update()
