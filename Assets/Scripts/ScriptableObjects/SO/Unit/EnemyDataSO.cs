@@ -6,6 +6,7 @@ namespace ScriptableObjects.SO
     [CreateAssetMenu(menuName = GameConst.SCRIPTABLE_OBJECTS_PATH + "Enemy Data")]
     public class EnemyDataSO : UnitDataSO
     {
+        [SerializeField] private float _rotationSpeed;
         [SerializeField] private EnemyFightingData _fightingData;
         [SerializeField] private EnemyHealthData _healthData;
         [SerializeField] private EnemyMovementData _movementData;
@@ -13,5 +14,6 @@ namespace ScriptableObjects.SO
         public EnemyFightingData FightingData => _fightingData;
         public EnemyHealthData HealthData => _healthData;
         public EnemyMovementData MovementData => _movementData;
+        public float RotationSpeed => _rotationSpeed;
     }
 }

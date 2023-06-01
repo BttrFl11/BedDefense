@@ -3,7 +3,7 @@ using ScriptableObjects.Data.Character;
 using UnityEngine;
 using Zenject;
 
-namespace Core.Gameplay.Character.Components
+namespace Core.Gameplay.Unit.Character.Components
 {
     [RequireComponent(typeof(CharacterIdentity), typeof(Rigidbody2D))]
     public class CharacterMovement : CharacterMonoBehaviour

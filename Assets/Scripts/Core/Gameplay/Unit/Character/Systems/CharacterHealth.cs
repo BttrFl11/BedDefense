@@ -1,6 +1,6 @@
 ﻿using Core.Gameplay.HealthSystem;
 
-namespace Core.Gameplay.Character.Systems
+namespace Core.Gameplay.Unit.Character.Systems
 {
     public class CharacterHealth : Health
     {

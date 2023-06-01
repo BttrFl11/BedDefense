@@ -23,9 +23,13 @@ namespace Core.Installers
         private void CreateService()
         {
             if (_deviceInfo.IsMobile)
-                Container.Bind<IInputService>().To<InputService_Mobile>().AsSingle();
+            {
+                //Container.Bind<IInputService>().To<InputService_Mobile>().AsSingle();
+            }
             else
+            {
                 Container.Bind<IInputService>().To<InputService_PC>().AsSingle();
+            }
         }
     }
 }

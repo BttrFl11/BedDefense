@@ -3,7 +3,7 @@ using UnityEngine;
 using Utils;
 using Zenject;
 
-namespace Core.Gameplay.Character.Components
+namespace Core.Gameplay.Unit.Character.Components
 {
     [RequireComponent(typeof(CharacterIdentity))]
     public class CharacterLook : CharacterMonoBehaviour

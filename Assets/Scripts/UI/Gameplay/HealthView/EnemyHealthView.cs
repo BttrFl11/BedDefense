@@ -1,5 +1,5 @@
-﻿using Core.Gameplay.Enemy.Components;
-using Core.Gameplay.Enemy.Systems;
+﻿using Core.Gameplay.Unit.Enemy.Components;
+using Core.Gameplay.Unit.Enemy.Systems;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

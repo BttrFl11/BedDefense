@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.Gameplay.Enemy.Systems
+namespace Core.Gameplay.Unit.Enemy.Systems
 {
     public class EnemyRegistry
     {

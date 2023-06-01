@@ -1,4 +1,4 @@
-﻿using Core.Gameplay.Character;
+﻿using Core.Gameplay.Unit.Character;
 using UnityEngine;
 using Zenject;
 

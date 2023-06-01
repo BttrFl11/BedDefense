@@ -1,10 +1,9 @@
-﻿using Core.Gameplay.Character;
+﻿using Core.Gameplay.Unit.Character;
 using ScriptableObjects.Data.Enemy;
 using UnityEngine;
-using Utils;
 using Zenject;
 
-namespace Core.Gameplay.Enemy.Components
+namespace Core.Gameplay.Unit.Enemy.Components
 {
     [RequireComponent(typeof(EnemyIdentity), typeof(Rigidbody2D))]
     public class EnemyMovement : EnemyMonoBehaviour
@@ -32,12 +31,6 @@ namespace Core.Gameplay.Enemy.Components
         private void Update()
         {
             MoveToTarget();
-            LookAtTarget();
-        }
-
-        private void LookAtTarget()
-        {
-            transform.rotation = Quaternion.AngleAxis(Geometry.GetRotationByDirection(Direction), Vector3.forward);
         }
 
         private void MoveToTarget()

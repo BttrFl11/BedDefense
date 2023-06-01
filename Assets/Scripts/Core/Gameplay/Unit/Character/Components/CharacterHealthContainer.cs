@@ -1,9 +1,9 @@
-﻿using Core.Gameplay.Character.Systems;
-using Core.Gameplay.Interfaces;
+﻿using Core.Gameplay.Interfaces;
+using Core.Gameplay.Unit.Character.Systems;
 using ScriptableObjects.Data.Character;
 using UnityEngine;
 
-namespace Core.Gameplay.Character.Components
+namespace Core.Gameplay.Unit.Character.Components
 {
     [RequireComponent(typeof(CharacterIdentity))]
     public class CharacterHealthContainer : CharacterMonoBehaviour, IDamageable

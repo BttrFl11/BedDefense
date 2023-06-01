@@ -1,5 +1,5 @@
-﻿using Core.Gameplay.Enemy;
-using Core.Gameplay.Enemy.Systems;
+﻿using Core.Gameplay.Unit.Enemy;
+using Core.Gameplay.Unit.Enemy.Systems;
 using Core.Gameplay.EnemySpawn.Waves;
 using Core.State;
 using Core.State.States;

@@ -1,6 +1,4 @@
-﻿using Core.Gameplay.Unit;
-
-namespace Core.Gameplay.Character.Components
+﻿namespace Core.Gameplay.Unit.Character.Components
 {
     public abstract class CharacterMonoBehaviour : UnitMonoBehaviour<CharacterIdentity>
     {

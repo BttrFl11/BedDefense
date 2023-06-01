@@ -1,7 +1,6 @@
-﻿using Core.Gameplay.Interfaces;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Core.Gameplay.Character.Components
+namespace Core.Gameplay.Unit.Character.Components
 {
     [RequireComponent(typeof(CharacterIdentity))]
     public class CharacterCollider : CharacterMonoBehaviour

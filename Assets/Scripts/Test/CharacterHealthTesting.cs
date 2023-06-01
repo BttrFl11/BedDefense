@@ -1,5 +1,5 @@
-﻿using Core.Gameplay.Character;
-using Core.Gameplay.Character.Components;
+﻿using Core.Gameplay.Unit.Character;
+using Core.Gameplay.Unit.Character.Components;
 using UnityEngine;
 using Zenject;
 

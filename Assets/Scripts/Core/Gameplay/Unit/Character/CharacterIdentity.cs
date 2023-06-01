@@ -1,7 +1,6 @@
-using Core.Gameplay.Unit;
 using ScriptableObjects.SO;
 
-namespace Core.Gameplay.Character
+namespace Core.Gameplay.Unit.Character
 {
     public class CharacterIdentity : UnitIdentity 
     {

@@ -1,9 +1,8 @@
-using Core.Gameplay.Enemy.Systems;
-using Core.Gameplay.Unit;
+using Core.Gameplay.Unit.Enemy.Systems;
 using ScriptableObjects.SO;
 using Zenject;
 
-namespace Core.Gameplay.Enemy
+namespace Core.Gameplay.Unit.Enemy
 {
     public class EnemyIdentity : UnitIdentity
     {

@@ -1,9 +1,9 @@
-﻿using Core.Gameplay.Enemy.Systems;
+﻿using Core.Gameplay.Unit.Enemy.Systems;
 using Core.Gameplay.Interfaces;
 using ScriptableObjects.Data.Enemy;
 using UnityEngine;
 
-namespace Core.Gameplay.Enemy.Components
+namespace Core.Gameplay.Unit.Enemy.Components
 {
     [RequireComponent(typeof(EnemyIdentity))]
     public class EnemyHealthContainer : EnemyMonoBehaviour, IDamageable
