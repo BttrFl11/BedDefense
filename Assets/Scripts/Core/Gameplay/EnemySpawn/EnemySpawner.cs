@@ -1,10 +1,12 @@
 ﻿using Core.Gameplay.Enemy;
+using Core.Gameplay.Enemy.Systems;
 using Core.Gameplay.EnemySpawn.Waves;
 using Core.State;
 using Core.State.States;
 using ScriptableObjects.SO;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using Utils;
 using Zenject;
@@ -24,10 +26,10 @@ namespace Core.Gameplay.EnemySpawn
 
         public event Action OnAllEnemiesDied;
 
-        public EnemySpawner(DayStateController stateController, EnemySpawnerSO data)
+        public EnemySpawner(DayStateController stateController, EnemySpawnerSO data, Spawner spawner)
         {
             _stateController = stateController;
-
+            _spawner = spawner;
             _data = data;
 
             Init();
@@ -98,7 +100,7 @@ namespace Core.Gameplay.EnemySpawn
             _day = _days[_dayIndex];
             _dayIndex++;
 
-            _spawner = new Spawner(_day, OnAllEnemiesDied);
+            _spawner.Init(_day, OnAllEnemiesDied);
         }
 
         private void Stop()
@@ -116,45 +118,61 @@ namespace Core.Gameplay.EnemySpawn
                 _spawner.Tick(Time.deltaTime);
         }
 
-        private class Spawner
+        public class Spawner
         {
-            private readonly DayWave _dayWave;
-
-            private Action _onDayEnd;
+            private DayWave _dayWave;
+            private Action _onAllEnemiesDie;
             private Wave _wave;
             private int _waveIndex;
-            private int _enemiesCount;
+            private int _amountToSpawn;
             private float _spawnTime;
             private bool _stop = false;
+            private DiContainer _diContainer;
+            private EnemyRegistry _registry;
 
-            private int EnemiesCount
+            private int AmountToSpawn
             {
-                get => _enemiesCount;
+                get => _amountToSpawn;
                 set
                 {
-                    _enemiesCount = value;
-                    if (_enemiesCount <= 0)
-                    {
-                        _waveIndex++;
+                    _amountToSpawn = value;
+                    if (_amountToSpawn <= 0)
                         UpdateWave();
-                    }
                 }
             }
 
-            public Spawner(DayWave dayWave, Action onDayEnd)
+            public Spawner(DiContainer diContainer, EnemyRegistry registry)
+            {
+                _diContainer = diContainer;
+                _registry = registry;
+            }
+
+            public void Init(DayWave dayWave, Action onAllEnemiesDie)
             {
                 _dayWave = dayWave;
-                _onDayEnd = onDayEnd;
+                _onAllEnemiesDie = onAllEnemiesDie;
 
+                _stop = false;
                 _waveIndex = 0;
+
                 UpdateWave();
+            }
+
+            private async void WaitToAllEnemiesDie()
+            {
+                while(_registry.Count > 0)
+                {
+                    await Task.Delay(100);
+                }
+
+                _onAllEnemiesDie?.Invoke();
             }
 
             private void UpdateWave()
             {
                 if (_waveIndex >= _dayWave.Waves.Length)
                 {
-                    _onDayEnd?.Invoke();
+                    WaitToAllEnemiesDie();
                     _stop = true;
                     return;
                 }
@@ -162,7 +180,9 @@ namespace Core.Gameplay.EnemySpawn
                 _wave = _dayWave.Waves[_waveIndex];
 
                 _spawnTime = Randomizer.GetValueFromVector(_wave.MinMaxSpawnTime);
-                EnemiesCount = _wave.EnemeisCount;
+                AmountToSpawn = _wave.EnemeisCount;
+
+                _waveIndex++;
             }
 
             public void Tick(float deltaTime)
@@ -180,11 +200,10 @@ namespace Core.Gameplay.EnemySpawn
             private void SpawnEnemy()
             {
                 EnemyIdentity prefab = GetRandomPrefab();
-
-                Debug.Log(prefab.name);
+                _diContainer.InstantiatePrefabForComponent<EnemyIdentity>(prefab);
 
                 _spawnTime = Randomizer.GetValueFromVector(_wave.MinMaxSpawnTime);
-                EnemiesCount--;
+                AmountToSpawn--;
             }
 
             private EnemyIdentity GetRandomPrefab()

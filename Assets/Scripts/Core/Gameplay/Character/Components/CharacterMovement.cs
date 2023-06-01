@@ -19,26 +19,20 @@ namespace Core.Gameplay.Character.Components
             _inputService = inputService;
         }
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
-
             _rigidbody = GetComponent<Rigidbody2D>();
 
             _data = Identity.GetData().MovementData;
         }
 
-        protected override void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
-
             _inputService.OnMove += Move;
         }
 
-        protected override void OnDisable()
+        private void OnDisable()
         {
-            base.OnDisable();
-
             _inputService.OnMove -= Move;
         }
 

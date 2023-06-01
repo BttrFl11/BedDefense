@@ -14,8 +14,6 @@ namespace Core.State.States
         [Wait(3f)]
         private void End()
         {
-            Debug.Log("M end");
-
             Controller.Change<DayState_Night>();
         }
 

@@ -6,4 +6,5 @@
     public const string RESOURCES_PATH = "Resources/";
     public const string WAVE_DATA_PATH = "EnemySpawn/Waves/";
     public const string DAY_WAVE_DATA_PATH = "EnemySpawn/DayWaves/";
+    public const int MAX_ENEMIES_ALIVE = 30;
 }

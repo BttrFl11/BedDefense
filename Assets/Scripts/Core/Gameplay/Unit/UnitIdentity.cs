@@ -34,12 +34,5 @@ namespace Core.Gameplay.Unit
         {
             return (T)_data;
         }
-
-        protected virtual void Awake() { }
-        protected virtual void OnEnable() { }
-        protected virtual void OnDisable() { }
-        protected virtual void OnDestroy() { }
-        protected virtual void Update() { }
-        protected virtual void FixedUpdate() { }
     }
 }

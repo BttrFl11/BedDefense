@@ -13,10 +13,8 @@ namespace Core.Gameplay.Character.Components
 
         public CharacterHealth Health => _health;
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
-
             Init();
         }
 
@@ -26,10 +24,8 @@ namespace Core.Gameplay.Character.Components
             _health = new CharacterHealth(_data.Settings);
         }
 
-        protected override void Update()
+        private void Update()
         {
-            base.Update();
-
             _health.Update(Time.deltaTime);
         }
 

@@ -8,7 +8,6 @@ namespace Core.Installers
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<DayStateController>().AsSingle();
-            //Container.BindExecutionOrder<DayStateController>(-10);
         }
     }
 }

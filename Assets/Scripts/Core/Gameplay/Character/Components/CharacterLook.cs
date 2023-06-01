@@ -18,17 +18,13 @@ namespace Core.Gameplay.Character.Components
             _inputService = inputService;
         }
 
-        protected override void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
-
             _inputService.OnLook += Look;
         }
 
-        protected override void OnDisable()
+        private void OnDisable()
         {
-            base.OnDisable();
-
             _inputService.OnLook -= Look;
         }
 

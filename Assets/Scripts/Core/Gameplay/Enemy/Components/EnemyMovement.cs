@@ -1,5 +1,4 @@
 ﻿using Core.Gameplay.Character;
-using Core.Gameplay.Interfaces;
 using ScriptableObjects.Data.Enemy;
 using UnityEngine;
 using Utils;
@@ -24,15 +23,13 @@ namespace Core.Gameplay.Enemy.Components
             _target = character.transform;
         }
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
-
             _rigidbody = GetComponent<Rigidbody2D>();
             _data = Identity.GetData().MovementData;
         }
 
-        protected override void Update()
+        private void Update()
         {
             MoveToTarget();
             LookAtTarget();
