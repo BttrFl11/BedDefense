@@ -5,23 +5,23 @@ namespace Core.State.States
 {
     public class DayState_Morning : DayState
     {
-        public override void Enter()
+        [Enter]
+        private void Enter()
         {
-            base.Enter();
-
             Debug.Log("Morning");
         }
 
         [Wait(3f)]
         private void End()
         {
+            Debug.Log("M end");
+
             Controller.Change<DayState_Night>();
         }
 
-        public override void Exit()
+        [Exit]
+        private void Exit()
         {
-            base.Exit();
-
             Debug.Log("Morning Exit");
         }
     }

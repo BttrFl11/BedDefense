@@ -1,23 +1,19 @@
-﻿using Core.Gameplay.EnemySpawn;
-using System;
+﻿using Core.State.Attributes;
 using UnityEngine;
-using Zenject;
 
 namespace Core.State.States
 {
     public class DayState_Night : DayState
     {
-        public override void Enter()
+        [Enter]
+        private void Enter()
         {
-            base.Enter();
-
             Debug.Log("Night");
         }
 
-        public override void Exit()
+        [Exit]
+        private void Exit()
         {
-            base.Exit();
-
             Debug.Log("Night Exit");
         }
     }

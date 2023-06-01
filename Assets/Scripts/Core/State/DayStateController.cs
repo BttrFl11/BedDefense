@@ -19,11 +19,11 @@ namespace Core.State
             set
             {
                 if (_currentState != null)
-                    _currentState.Exit();
+                    _currentState._Exit();
 
                 _currentState = value;
 
-                _currentState.Enter();
+                _currentState._Enter();
 
                 OnStateChanged?.Invoke(CurrentState);
             }
@@ -103,7 +103,7 @@ namespace Core.State
 
         public void Tick()
         {
-            CurrentState.Update();
+            CurrentState._Update();
         }
     }
 

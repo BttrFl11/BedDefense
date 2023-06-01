@@ -2,8 +2,8 @@
 {
     public interface IDayState
     {
-        void Enter();
-        void Exit();
-        void Update();
+        void _Enter();
+        void _Exit();
+        void _Update();
     }
 }
