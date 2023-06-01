@@ -1,32 +1,28 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Zenject;
 
 namespace Core.Input
 {
-    public class InputProvider
+    public class InputProvider : ITickable, IDisposable
     {
         private IInputService _inputService;
         public IInputService InputService => _inputService;
 
-        public void OnDisable()
+        [Inject]
+        private void Construct(IInputService inputService)
         {
-            _inputService.OnDisable();
+            _inputService = inputService;
         }
 
-        public void Update()
+        public void Tick()
         {
             _inputService.Update(Time.deltaTime);
         }
 
-        public void CreatePCInputService()
+        public void Dispose()
         {
-            _inputService = new PCInputService();
-
-            _inputService.OnEnable();
-        }
-
-        public void CreateMobileInputService()
-        {
-            throw new System.NotImplementedException();
+            _inputService.OnDisable();
         }
     }
 }

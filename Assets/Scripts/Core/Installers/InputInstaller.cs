@@ -5,30 +5,27 @@ namespace Core.Installers
 {
     public class InputInstaller : MonoInstaller
     {
-        private InputProvider _inputProvider;
+        private DeviceInfo _deviceInfo;
+
+        [Inject]
+        private void Construct(DeviceInfo deviceInfo)
+        {
+            _deviceInfo = deviceInfo;
+        }
 
         public override void InstallBindings()
         {
-            _inputProvider = new InputProvider();
-            Container.Bind<InputProvider>().FromInstance(_inputProvider).AsSingle();
+            Container.BindInterfacesAndSelfTo<InputProvider>().AsSingle();
 
-#if UNITY_EDITOR || UNITY_STANDALONE
-            _inputProvider.CreatePCInputService();
-#else
-            _inputProvider.CreateMobileInputService();
-#endif
-
-            Container.Bind<IInputService>().FromInstance(_inputProvider.InputService).AsSingle();
+            CreateService();
         }
 
-        private void OnDisable()
+        private void CreateService()
         {
-            _inputProvider.OnDisable();
-        }
-
-        private void Update()
-        {
-            _inputProvider.Update();
+            if (_deviceInfo.IsMobile)
+                Container.Bind<IInputService>().To<InputService_Mobile>().AsSingle();
+            else
+                Container.Bind<IInputService>().To<InputService_PC>().AsSingle();
         }
     }
 }

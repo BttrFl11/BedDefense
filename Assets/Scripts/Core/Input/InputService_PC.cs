@@ -5,7 +5,7 @@ using static UnityEngine.Input;
 namespace Core.Input
 {
     [Serializable]
-    public class PCInputService : IInputService
+    public class InputService_PC : IInputService
     {
         public event Action OnAttack;
         public event Action<Vector2> OnMove;
