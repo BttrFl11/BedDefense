@@ -1,6 +1,6 @@
 ﻿using Core.Gameplay.Unit.Enemy.Systems;
 using Core.Gameplay.Interfaces;
-using ScriptableObjects.Data.Enemy;
+using ScriptableObjects.Data.Unit.Enemy;
 using UnityEngine;
 
 namespace Core.Gameplay.Unit.Enemy.Components

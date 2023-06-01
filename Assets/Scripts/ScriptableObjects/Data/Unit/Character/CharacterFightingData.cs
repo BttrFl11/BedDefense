@@ -1,7 +1,6 @@
-﻿using ScriptableObjects.Data.Unit;
-using System;
+﻿using System;
 
-namespace ScriptableObjects.Data.Character
+namespace ScriptableObjects.Data.Unit.Character
 {
     [Serializable]
     public class CharacterFightingData : UnitFightingData

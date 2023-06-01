@@ -1,7 +1,6 @@
-﻿using ScriptableObjects.Data.Unit;
-using System;
+﻿using System;
 
-namespace ScriptableObjects.Data.Enemy
+namespace ScriptableObjects.Data.Unit.Enemy
 {
     [Serializable]
     public class EnemyMovementData : UnitMovementData

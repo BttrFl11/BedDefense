@@ -1,6 +1,6 @@
 ﻿using Core.Gameplay.Interfaces;
 using Core.Gameplay.Unit.Character.Systems;
-using ScriptableObjects.Data.Character;
+using ScriptableObjects.Data.Unit.Character;
 using UnityEngine;
 
 namespace Core.Gameplay.Unit.Character.Components

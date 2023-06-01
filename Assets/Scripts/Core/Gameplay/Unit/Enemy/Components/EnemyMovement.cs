@@ -1,5 +1,5 @@
 ﻿using Core.Gameplay.Unit.Character;
-using ScriptableObjects.Data.Enemy;
+using ScriptableObjects.Data.Unit.Enemy;
 using UnityEngine;
 using Zenject;
 

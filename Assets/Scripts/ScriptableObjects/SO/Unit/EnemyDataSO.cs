@@ -1,4 +1,4 @@
-﻿using ScriptableObjects.Data.Enemy;
+﻿using ScriptableObjects.Data.Unit.Enemy;
 using UnityEngine;
 
 namespace ScriptableObjects.SO

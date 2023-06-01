@@ -1,4 +1,4 @@
-﻿using ScriptableObjects.Data.Character;
+﻿using ScriptableObjects.Data.Unit.Character;
 using UnityEngine;
 
 namespace ScriptableObjects.SO
