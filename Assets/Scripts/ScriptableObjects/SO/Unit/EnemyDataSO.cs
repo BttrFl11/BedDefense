@@ -7,6 +7,7 @@ namespace ScriptableObjects.SO
     public class EnemyDataSO : UnitDataSO
     {
         [SerializeField] private float _rotationSpeed;
+        [SerializeField] private EnemyPlaceholderData _placeholderData;
         [SerializeField] private EnemyFightingData _fightingData;
         [SerializeField] private EnemyHealthData _healthData;
         [SerializeField] private EnemyMovementData _movementData;
@@ -15,5 +16,6 @@ namespace ScriptableObjects.SO
         public EnemyHealthData HealthData => _healthData;
         public EnemyMovementData MovementData => _movementData;
         public float RotationSpeed => _rotationSpeed;
+        public EnemyPlaceholderData PlaceholderData => _placeholderData;
     }
 }

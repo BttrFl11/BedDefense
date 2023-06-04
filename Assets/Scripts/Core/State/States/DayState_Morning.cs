@@ -5,6 +5,10 @@ namespace Core.State.States
 {
     public class DayState_Morning : DayState
     {
+        public DayState_Morning(DayStateController controller) : base(controller)
+        {
+        }
+
         [Enter]
         private void Enter()
         {

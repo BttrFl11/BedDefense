@@ -11,7 +11,7 @@ namespace Core.Installers
         public override void InstallBindings()
         {
             CharacterIdentity instance = Container.InstantiatePrefabForComponent<CharacterIdentity>(_characterPrefab);
-            Container.Bind<CharacterIdentity>().FromInstance(instance);
+            Container.Bind<CharacterIdentity>().FromInstance(instance).AsSingle();
         }
     }
 }

@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2289e40856b8ea40a3826c0e6daa0d4, type: 3}
-  m_Name: 1 1
+  m_Script: {fileID: 11500000, guid: 89032b4e9e2776940a29b8679023f24c, type: 3}
+  m_Name: Game Settings
   m_EditorClassIdentifier: 
-  _enemyPrefabs:
-  - {fileID: 6468907540744618711, guid: 541b59729528a1548813fb647286c08c, type: 3}
-  _minMaxEnemiesCount: {x: 3, y: 3}
-  _minMaxSpawnTime: {x: 0.5, y: 1}
+  _settings:
+    _characterStartPosition: {x: 0, y: -2}

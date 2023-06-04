@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40db4602669120747a22265782acc8df, type: 3}
   m_Name: New Enemy Spawner SO
   m_EditorClassIdentifier: 
-  _dayWavesCount: 2
-  _similarDaysAvailable: 0
-  _similarWavesAvailable: 0
-  _similarWavesInDayAvailable: 0
+  _dayWavesCount: 3
+  _similarDaysAvailable: 1
+  _similarWavesAvailable: 1
+  _similarWavesInDayAvailable: 1

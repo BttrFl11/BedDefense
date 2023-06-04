@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Core.Installers
 {
-    public class EnemyInstaller : MonoInstaller
+    public class EnemySpawnInstaller : MonoInstaller
     {
         [SerializeField] private EnemySpawnerSO _enemySpawnerData;
 

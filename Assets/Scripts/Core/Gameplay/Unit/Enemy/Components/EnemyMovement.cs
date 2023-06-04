@@ -1,41 +1,23 @@
-﻿using Core.Gameplay.Unit.Character;
-using ScriptableObjects.Data.Unit.Enemy;
+﻿using ScriptableObjects.Data.Unit.Enemy;
 using UnityEngine;
-using Zenject;
 
 namespace Core.Gameplay.Unit.Enemy.Components
 {
-    [RequireComponent(typeof(EnemyIdentity), typeof(Rigidbody2D))]
-    public class EnemyMovement : EnemyMonoBehaviour
+    public class EnemyMovement
     {
         private Rigidbody2D _rigidbody;
         private EnemyMovementData _data;
-        private Transform _target;
-
         private float _moveSpeed;
 
-        private Vector2 Direction => (_target.position - transform.position).normalized;
-
-        [Inject]
-        private void Construct(CharacterIdentity character)
+        public EnemyMovement(EnemyMovementData data, Rigidbody2D rigidbody)
         {
-            _target = character.transform;
+            _rigidbody = rigidbody;
+            _data = data;
         }
 
-        private void Awake()
+        public void Move(Vector2 direction)
         {
-            _rigidbody = GetComponent<Rigidbody2D>();
-            _data = Identity.GetData().MovementData;
-        }
-
-        private void Update()
-        {
-            MoveToTarget();
-        }
-
-        private void MoveToTarget()
-        {
-            _rigidbody.MovePosition(_rigidbody.position + GetSpeed() * Time.deltaTime * Direction);
+            _rigidbody.MovePosition(_rigidbody.position + GetSpeed() * Time.deltaTime * direction);
         }
 
         public float GetSpeed()

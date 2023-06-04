@@ -1,6 +1,6 @@
 ﻿namespace Core.State.States
 {
-    public interface IDayState
+    public interface IState
     {
         void _Enter();
         void _Exit();

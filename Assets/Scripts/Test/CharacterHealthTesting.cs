@@ -3,7 +3,7 @@ using Core.Gameplay.Unit.Character.Components;
 using UnityEngine;
 using Zenject;
 
-namespace Assets.Scripts.Test
+namespace Test
 {
     public class CharacterHealthTesting : MonoBehaviour
     {
