@@ -1,5 +1,5 @@
 ﻿using Core.Gameplay.Interfaces;
-using ScriptableObjects.Data.Unit.Enemy;
+using ScriptableObjects.SO;
 using UnityEngine;
 using Zenject;
 
@@ -8,29 +8,48 @@ namespace Core.Gameplay.Unit.Enemy.Components
     [RequireComponent(typeof(EnemyIdentity), typeof(Rigidbody2D))]
     public class EnemyAI : EnemyMonoBehaviour
     {
-        private EnemyMovementData _data;
         private Rigidbody2D _rigidbody;
         private EnemyMovement _movement;
+        private EnemyDataSO _data;
+        private State _state;
+        private IEnemyTarget _endTarget;
 
-        private IEnemyTarget _target;
+        private Vector2 EndDirection => (_endTarget.Transform.position - transform.position).normalized;
+
+        private enum State
+        {
+            Move,
+            Attack
+        }
 
         [Inject]
-        private void Construct(IEnemyTarget target)
+        private void Construct(IEnemyTarget target, EnemyDataSO data)
         {
-            _target = target;
+            _endTarget = target;
+            _data = data;
         }
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
-            _data = Identity.GetData().MovementData;
 
-            _movement = new EnemyMovement(_data, _rigidbody);
+            _movement = new EnemyMovement(_data.MovementData, _rigidbody);
+
+            _state = State.Move;
         }
 
         private void Update()
         {
+            switch (_state)
+            {
+                case State.Move:
 
+                    _movement.Move(EndDirection);
+
+                    break;
+                case State.Attack:
+                    break;
+            }
         }
     }
 }

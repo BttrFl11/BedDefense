@@ -200,10 +200,19 @@ namespace Core.Gameplay.EnemySpawn
             private void SpawnEnemy()
             {
                 EnemyIdentity prefab = GetRandomPrefab();
-                _diContainer.InstantiatePrefabForComponent<EnemyIdentity>(prefab);
+
+                DiContainer subContainer = _diContainer.CreateSubContainer();
+                InstallEnemyState(subContainer);
 
                 _spawnTime = Randomizer.GetValueFromVector(_wave.MinMaxSpawnTime);
                 AmountToSpawn--;
+
+                void InstallEnemyState(DiContainer subContainer)
+                {
+                    subContainer.Bind<EnemyDataSO>().FromInstance(prefab.GetData<EnemyDataSO>());
+
+                    subContainer.InstantiatePrefabForComponent<EnemyIdentity>(prefab);
+                }
             }
 
             private EnemyIdentity GetRandomPrefab()

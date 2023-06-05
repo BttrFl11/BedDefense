@@ -2,6 +2,8 @@
 using Core.Gameplay.Interfaces;
 using ScriptableObjects.Data.Unit.Enemy;
 using UnityEngine;
+using Zenject;
+using ScriptableObjects.SO;
 
 namespace Core.Gameplay.Unit.Enemy.Components
 {
@@ -9,9 +11,16 @@ namespace Core.Gameplay.Unit.Enemy.Components
     public class EnemyHealthContainer : EnemyMonoBehaviour, IDamageable
     {
         private EnemyHealth _health;
+
         private EnemyHealthData _data;
 
         public EnemyHealth Health => _health;
+
+        [Inject]
+        private void Construct(EnemyDataSO data)
+        {
+            _data = data.HealthData;
+        }
 
         private void Awake()
         {
@@ -20,7 +29,6 @@ namespace Core.Gameplay.Unit.Enemy.Components
 
         private void Init()
         {
-            _data = Identity.GetData().HealthData;
             _health = new EnemyHealth(_data.Settings);
         }
 

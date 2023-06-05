@@ -10,20 +10,17 @@ namespace Core.Gameplay.Unit.Enemy.Components
     public class EnemyLook : EnemyMonoBehaviour
     {
         private Transform _target;
-        private EnemyDataSO _data;
         private float _endRotationZ;
+
+        private EnemyDataSO _data;
 
         private Vector2 Direction => (_target.position - transform.position).normalized;
 
         [Inject]
-        private void Construct(CharacterIdentity character)
+        private void Construct(CharacterIdentity character, EnemyDataSO data)
         {
             _target = character.transform;
-        }
-
-        private void Awake()
-        {
-            _data = Identity.GetData();
+            _data = data;
         }
 
         public void Update()

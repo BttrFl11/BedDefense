@@ -68,7 +68,7 @@ namespace Core.State
             CurrentState = state;
         }
 
-        public void Tick()
+        public virtual void Tick()
         {
             CurrentState._Update();
         }

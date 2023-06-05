@@ -1,6 +1,8 @@
 ﻿using ScriptableObjects.Data.Unit.Enemy;
+using ScriptableObjects.SO;
 using UnityEngine;
 using Utils;
+using Zenject;
 
 namespace Core.Gameplay.Unit.Enemy.Components
 {
@@ -8,9 +10,10 @@ namespace Core.Gameplay.Unit.Enemy.Components
     {
         private EnemyPlaceholderData _data;
 
-        private void Awake()
+        [Inject]
+        private void Construct(EnemyDataSO data)
         {
-            _data = Identity.GetData().PlaceholderData;
+            _data = data.PlaceholderData;
         }
 
         private void OnEnable()

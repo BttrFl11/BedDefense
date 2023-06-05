@@ -23,10 +23,5 @@ namespace Core.Gameplay.Unit.Enemy
         {
             _registry.Remove(this);
         }
-
-        public EnemyDataSO GetData()
-        {
-            return (EnemyDataSO)_data;
-        }
     }
 }
