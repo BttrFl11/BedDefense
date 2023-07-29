@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 6468907540744618713}
   - component: {fileID: 6713627149603173220}
   - component: {fileID: -3599944052864157690}
+  - component: {fileID: 4980534513353255362}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -168,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd79e34ae28334d897b75be0a75e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackCollider: {fileID: 4980534513353255362}
 --- !u!114 &6468907540744618713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,3 +206,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db8c9198b87de44cb86ae583539164a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &4980534513353255362
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6468907540744618712}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.0001

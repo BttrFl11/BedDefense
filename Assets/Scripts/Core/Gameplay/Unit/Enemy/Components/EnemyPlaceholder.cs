@@ -13,7 +13,7 @@ namespace Core.Gameplay.Unit.Enemy.Components
         [Inject]
         private void Construct(EnemyDataSO data)
         {
-            _data = data.PlaceholderData;
+            _data = data.Placeholder;
         }
 
         private void OnEnable()

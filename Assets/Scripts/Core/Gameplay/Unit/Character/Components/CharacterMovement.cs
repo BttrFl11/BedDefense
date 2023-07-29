@@ -6,24 +6,18 @@ using Zenject;
 namespace Core.Gameplay.Unit.Character.Components
 {
     [RequireComponent(typeof(CharacterIdentity), typeof(Rigidbody2D))]
-    public class CharacterMovement : CharacterMonoBehaviour
+    public class CharacterMovement : MonoBehaviour
     {
         private CharacterMovementData _data;
         private Rigidbody2D _rigidbody;
 
-        private IInputService _inputService;
-
-        [Inject]
-        private void Construct(IInputService inputService)
-        {
-            _inputService = inputService;
-        }
+        [Inject] private IInputService _inputService;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
 
-            _data = Identity.GetData().MovementData;
+            _data = Identity.GetData().Movement;
         }
 
         private void OnEnable()

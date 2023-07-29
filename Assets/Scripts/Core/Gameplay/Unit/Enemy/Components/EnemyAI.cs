@@ -8,6 +8,8 @@ namespace Core.Gameplay.Unit.Enemy.Components
     [RequireComponent(typeof(EnemyIdentity), typeof(Rigidbody2D))]
     public class EnemyAI : EnemyMonoBehaviour
     {
+        [SerializeField] private CircleCollider2D _attackCollider;
+
         private Rigidbody2D _rigidbody;
         private EnemyMovement _movement;
         private EnemyDataSO _data;
@@ -33,9 +35,11 @@ namespace Core.Gameplay.Unit.Enemy.Components
         {
             _rigidbody = GetComponent<Rigidbody2D>();
 
-            _movement = new EnemyMovement(_data.MovementData, _rigidbody);
-
+            _movement = new EnemyMovement(_data.Movement, _rigidbody);
             _state = State.Move;
+
+            _attackCollider.isTrigger = true;
+            _attackCollider.radius = _data.Fighting.AttackRange;
         }
 
         private void Update()

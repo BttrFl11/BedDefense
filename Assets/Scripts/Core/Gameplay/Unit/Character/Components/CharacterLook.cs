@@ -6,7 +6,7 @@ using Zenject;
 namespace Core.Gameplay.Unit.Character.Components
 {
     [RequireComponent(typeof(CharacterIdentity))]
-    public class CharacterLook : CharacterMonoBehaviour
+    public class CharacterLook : MonoBehaviour
     {
         private IInputService _inputService;
 

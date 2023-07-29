@@ -1,12 +1,10 @@
 using ScriptableObjects.SO;
+using UnityEngine;
 
 namespace Core.Gameplay.Unit.Character
 {
-    public class CharacterIdentity : UnitIdentity
+    public class CharacterIdentity : MonoBehaviour
     {
-        public CharacterDataSO GetData()
-        {
-            return (CharacterDataSO)_data;
-        }
+
     }
 }
