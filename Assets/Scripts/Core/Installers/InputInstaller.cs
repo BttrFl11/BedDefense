@@ -1,23 +1,18 @@
 ﻿using Core.Input;
+using UnityEngine;
 using Zenject;
 
 namespace Core.Installers
 {
     public class InputInstaller : MonoInstaller
     {
-        private DeviceInfo _deviceInfo;
-
-        [Inject]
-        private void Construct(DeviceInfo deviceInfo)
-        {
-            _deviceInfo = deviceInfo;
-        }
+        [Inject] private DeviceInfo _deviceInfo;
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<InputProvider>().AsSingle();
-
             CreateService();
+
+            Container.BindInterfacesAndSelfTo<InputProvider>().AsSingle();
         }
 
         private void CreateService()
@@ -28,6 +23,8 @@ namespace Core.Installers
             }
             else
             {
+                Debug.Log("1");
+
                 Container.Bind<IInputService>().To<InputService_PC>().AsSingle();
             }
         }

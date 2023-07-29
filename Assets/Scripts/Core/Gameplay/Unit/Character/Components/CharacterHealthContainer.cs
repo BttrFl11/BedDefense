@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Core.Gameplay.Unit.Character.Components
 {
     [RequireComponent(typeof(CharacterIdentity))]
-    public class CharacterHealthContainer : CharacterMonoBehaviour, IDamageable
+    public class CharacterHealthContainer : MonoBehaviour, IDamageable
     {
         private CharacterHealth _health;
         private CharacterHealthData _data;
@@ -20,7 +20,7 @@ namespace Core.Gameplay.Unit.Character.Components
 
         private void Init()
         {
-            _data = Identity.GetData().HealthData;
+            _data = Identity.GetData().Health;
             _health = new CharacterHealth(_data.Settings);
         }
 

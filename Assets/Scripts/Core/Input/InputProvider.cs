@@ -4,25 +4,29 @@ using Zenject;
 
 namespace Core.Input
 {
-    public class InputProvider : ITickable, IDisposable
+    public class InputProvider : ITickable, IFixedTickable, IDisposable
     {
         private IInputService _inputService;
         public IInputService InputService => _inputService;
 
-        [Inject]
-        private void Construct(IInputService inputService)
+        public InputProvider(IInputService inputService)
         {
             _inputService = inputService;
-        }
-
-        public void Tick()
-        {
-            _inputService.Update(Time.deltaTime);
         }
 
         public void Dispose()
         {
             _inputService.OnDisable();
+        }
+
+        public void Tick()
+        {
+            _inputService.Tick();
+        }
+
+        public void FixedTick()
+        {
+            _inputService.FixedTick();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Core.Input
         private Vector2 _lookDirection;
         private Camera _camera;
 
-        public void OnEnable() 
+        public void OnEnable()
         {
             FindCamera();
         }
@@ -28,16 +28,20 @@ namespace Core.Input
             _camera = Camera.main;
         }
 
-        public void Update(float deltaTime)
+        public void Tick()
+        {
+            HandleLook();
+        }
+
+        public void FixedTick()
         {
             HandleAttack();
             HandleMove();
-            HandleLook();
         }
 
         private void HandleAttack()
         {
-            if(GetMouseButtonDown(0))
+            if (GetMouseButtonDown(0))
             {
                 OnAttack?.Invoke();
             }
@@ -46,6 +50,7 @@ namespace Core.Input
         private void HandleMove()
         {
             _moveDirection = new Vector2(GetAxis(GameConst.HORIZONTAL_AXIS), GetAxis(GameConst.VERTICAL_AXIS)).normalized;
+            Debug.Log(_moveDirection);
             if (_moveDirection.magnitude > 0)
                 OnMove?.Invoke(_moveDirection);
         }
@@ -56,7 +61,7 @@ namespace Core.Input
                 FindCamera();
 
             _lookDirection = _camera.ScreenToWorldPoint(mousePosition);
-            if(_lookDirection != Vector2.zero)
+            if (_lookDirection != Vector2.zero)
                 OnLook?.Invoke(_lookDirection);
         }
 

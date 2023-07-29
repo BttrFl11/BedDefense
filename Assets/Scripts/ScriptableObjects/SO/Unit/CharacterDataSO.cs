@@ -6,12 +6,12 @@ namespace ScriptableObjects.SO
     [CreateAssetMenu(menuName = GameConst.SCRIPTABLE_OBJECTS_PATH + "Character Data")]
     public class CharacterDataSO : UnitDataSO
     {
-        [SerializeField] private CharacterFightingData _fightingData;
-        [SerializeField] private CharacterHealthData _healthData;
-        [SerializeField] private CharacterMovementData _movementData;
+        [SerializeField] private CharacterFightingData _fighting;
+        [SerializeField] private CharacterHealthData _health;
+        [SerializeField] private CharacterMovementData _movement;
 
-        public CharacterFightingData FightingData => _fightingData;
-        public CharacterHealthData HealthData => _healthData;
-        public CharacterMovementData MovementData => _movementData;
+        public CharacterFightingData Fighting => _fighting;
+        public CharacterHealthData Health => _health;
+        public CharacterMovementData Movement => _movement;
     }
 }
